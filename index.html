@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <caption>Google Blogs</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>URL</th>
+                <th>First Post</th>
+                <th>Last Post</th>
+                <th>Language</th>
+                <th>Access</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="blogtable"></tbody>
+    </table>
+</body>
+<script>
+async function loadBlogIndex() {
+    const response = await fetch("blogindex.json");
+    const blogs = await response.json();
+    
+    const table = document.getElementById("blogtable");
+
+    for (const blog of blogs) {
+    const row = table.insertRow();
+    const nameCell = row.insertCell();
+    const urlCell = row.insertCell();
+    const firstPostCell = row.insertCell();
+    const lastPostCell = row.insertCell();
+    const languageCell = row.insertCell();
+    const accessCell = row.insertCell();
+    const statusCell = row.insertCell();
+
+    nameCell.textContent = blog.name;
+    urlCell.textContent = blog.url;
+    accessCell.textContent = blog.access;
+    statusCell.textContent = blog.status;
+    firstPostCell.textContent = blog.firstPostDate;
+    lastPostCell.textContent = blog.lastPostDate;
+    languageCell.textContent = blog.language;
+    }
+}
+loadBlogIndex();
+</script>
+</html>
